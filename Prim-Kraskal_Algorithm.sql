@@ -1,9 +1,9 @@
-use [КлимРиски_18-12-13]
+use [╨Ъ╨╗╨╕╨╝╨а╨╕╤Б╨║╨╕_18-12-13]
 go
 
-SELECT [Эк.риск 2014г/365] as R_ec, НазСубъекта as Название_Субъекта
+SELECT [╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] as R_ec, ╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ as ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░
 INTO Pemp
-FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ]
+FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д]
 ORDER BY R_ec DESC
 
 ALTER TABLE Pemp
@@ -24,7 +24,7 @@ DECLARE @dif1 float;
 
 
 DECLARE weather_curs SCROLL CURSOR 
-FOR SELECT R_ec, Название_Субъекта, Dif FROM Pemp ORDER BY R_ec DESC
+FOR SELECT R_ec, ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░, Dif FROM Pemp ORDER BY R_ec DESC
 FOR UPDATE OF Dif 
 
 OPEN weather_curs
@@ -38,7 +38,7 @@ BEGIN
 
    UPDATE Pemp
    SET Dif = round(@zna - @zna1,2)
-   WHERE Название_Субъекта = @name1
+   WHERE ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name1
 
    FETCH RELATIVE 0 FROM weather_curs
    INTO @zna, @name, @dif;
@@ -78,7 +78,7 @@ DECLARE @zna float;
 
 
 DECLARE weather_curs1 SCROLL CURSOR 
-FOR SELECT R_ec , Название_Субъекта, Dif FROM Pemp ORDER BY R_ec DESC
+FOR SELECT R_ec , ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░, Dif FROM Pemp ORDER BY R_ec DESC
 
 
 
@@ -91,14 +91,14 @@ FETCH NEXT FROM weather_curs1 INTO @zna, @name3, @dif3
 
    IF (@dif2 > @dif3)
 BEGIN
-   INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+   INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
 END
 ELSE
 BEGIN
    
-   INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+   INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
 END
 
 FETCH RELATIVE 0 FROM weather_curs1 INTO @zna, @name2, @dif2;
@@ -120,14 +120,14 @@ BEGIN
            
 	    IF (@dif2 > @dif1)
           BEGIN
-             INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+             INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
    
           END
 		  ELSE
           BEGIN
-             INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+             INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
           END
 
     BREAK
@@ -137,8 +137,8 @@ BEGIN
    
    IF (@dif2 > @dif1) and (@dif2 > @dif3)
 BEGIN
-   INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+   INSERT INTO Pemp1([vich_char],[vich_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
    
 
    
@@ -146,8 +146,8 @@ END
 ELSE
 BEGIN
    
-   INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[Эк.риск 2014г/365] FROM [1(2)_Индексы погодно-климатических рисков для экономик субъектов РФ] AS j 
-	                                                                       WHERE j.НазСубъекта = @name2))
+   INSERT INTO Pemp1([ost_char],[ost_float],R_sub) VALUES(@name2, @dif2,(SELECT j.[╨н╨║.╤А╨╕╤Б╨║ 2014╨│/365] FROM [1(2)_╨Ш╨╜╨┤╨╡╨║╤Б╤Л ╨┐╨╛╨│╨╛╨┤╨╜╨╛-╨║╨╗╨╕╨╝╨░╤В╨╕╤З╨╡╤Б╨║╨╕╤Е ╤А╨╕╤Б╨║╨╛╨▓ ╨┤╨╗╤П ╤Н╨║╨╛╨╜╨╛╨╝╨╕╨║ ╤Б╤Г╨▒╤К╨╡╨║╤В╨╛╨▓ ╨а╨д] AS j 
+	                                                                       WHERE j.╨Э╨░╨╖╨б╤Г╨▒╤К╨╡╨║╤В╨░ = @name2))
 END
 
 
@@ -182,7 +182,7 @@ DECLARE @Diff float;
 
 
 DECLARE cheb_pemp_curs CURSOR 
-FOR SELECT R_ec, Название_Субъекта, Dif FROM Pemp_main ORDER BY R_ec DESC
+FOR SELECT R_ec, ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░, Dif FROM Pemp_main ORDER BY R_ec DESC
 
 
 OPEN cheb_pemp_curs
@@ -193,8 +193,8 @@ FETCH NEXT FROM cheb_pemp_curs INTO @first, @first_name, @Diff
 WHILE @@FETCH_STATUS = 0 
 BEGIN 
    
-   IF @first_name NOT IN (SELECT Название_Субъекта FROM Pemp 
-                       RIGHT JOIN Pemp1 ON Название_Субъекта = vich_char
+   IF @first_name NOT IN (SELECT ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░ FROM Pemp 
+                       RIGHT JOIN Pemp1 ON ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░ = vich_char
 	                 WHERE vich_char IS NOT NULL)
    INSERT INTO Pemp33([ost_char],[ost_float],R_sub) VALUES(@first_name, @Diff, @first)
    ELSE
@@ -1043,7 +1043,7 @@ DROP TABLE Pemp33;
 
 truncate table Pemp
 
-INSERT INTO Pemp(R_ec, Название_Субъекта, Dif)
+INSERT INTO Pemp(R_ec, ╨Э╨░╨╖╨▓╨░╨╜╨╕╨╡_╨б╤Г╨▒╤К╨╡╨║╤В╨░, Dif)
 SELECT R_sub, vich_char, vich_float
 FROM Pemp1
 WHERE vich_char IS NOT NULL
